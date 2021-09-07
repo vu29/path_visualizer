@@ -9,7 +9,7 @@ class Node:
         self.col = col
         self.x = row * width
         self.y = col * width
-        self.total_row = total_rows
+        self.total_rows = total_rows
         self.neighbors = []
         self.color = color
         self.width = width
@@ -42,10 +42,10 @@ class Node:
         return self.color == colors.CYAN
 
     def is_end(self):
-        return self.color == colors.YELLOW
+        return self.color == colors.DARK_BLUE
 
     def is_path(self):
-        return self.color == colors.VIOLET
+        return self.color == colors.PURPLE
 
     # State setter for the node
 
@@ -65,10 +65,10 @@ class Node:
         self.color = colors.CYAN
 
     def make_end(self):
-        self.color = colors.YELLOW
+        self.color = colors.DARK_BLUE
 
     def make_path(self):
-        self.color = colors.VIOLET
+        self.color = colors.PURPLE
 
     def draw(self,window):
         pygame.draw.rect(window,self.color,(self.x,self.y,self.width,self.width))
@@ -88,12 +88,12 @@ class Node:
             self.neighbors.append(grid[self.row][self.col -1])
 
         ## Right
-        if self.col < self.total_row -1 and not grid[self.row][self.col + 1].is_barrier():
+        if self.col < self.total_rows -1 and not grid[self.row][self.col + 1].is_barrier():
             self.neighbors.append(grid[self.row][self.col + 1])
 
     
-    def __lt__(self,other_node):
-        return False
+    # def __lt__(self,other_node):
+    #     return False
 
 
 

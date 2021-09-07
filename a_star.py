@@ -3,12 +3,13 @@ import pygame
 
 from node import Node,colors
 from utils import *
+from algorithm import a_star
 
 
 
 
 WIDTH = 900
-ROWS = 60
+ROWS = 50
 
 WINDOW = pygame.display.set_mode((WIDTH,WIDTH))
 pygame.display.set_caption("Path Visualizer")
@@ -66,9 +67,16 @@ def main(window,side_length,rows):
                     end = None
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE and not algo_started:
-                    pass
+                if event.key == pygame.K_SPACE and start and end:
+                    for row in grid:
+                        for node in row:
+                            node.update_neighbors(grid)
 
+                    print(a_star(lambda : draw(window,grid,rows,side_length),grid,start,end))
+
+                if event.key == pygame.K_r:
+                    start,end = None,None
+                    grid = make_grid(rows,side_length)
 
                 
 
