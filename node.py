@@ -10,7 +10,9 @@ class Node:
         self.x = row * width
         self.y = col * width
         self.total_row = total_rows
+        self.neighbors = []
         self.color = color
+        self.width = width
 
     def get_pos(self):
         return (self.row,self.col)
@@ -69,10 +71,26 @@ class Node:
         self.color = colors.VIOLET
 
     def draw(self,window):
-        pygame.draw.rect(win,self.color,(self.x,self.y,self.width,self.height))
+        pygame.draw.rect(window,self.color,(self.x,self.y,self.width,self.width))
 
-    def update_neighbours(self,grid):
-        pass
+    def update_neighbors(self,grid):
+        self.neighbors = []
+        ## Down 
+        if self.row < self.total_rows - 1 and not grid[self.row + 1][self.col].is_barrier():
+            self.neighbors.append(grid[self.row + 1][self.col])
+
+        ## Up
+        if self.row > 0 and not grid[self.row - 1][self.col].is_barrier():
+            self.neighbors.append(grid[self.row - 1][self.col])
+
+        ## Left 
+        if self.col > 0 and not grid[self.row][self.col - 1].is_barrier():
+            self.neighbors.append(grid[self.row][self.col -1])
+
+        ## Right
+        if self.col < self.total_row -1 and not grid[self.row][self.col + 1].is_barrier():
+            self.neighbors.append(grid[self.row][self.col + 1])
+
     
     def __lt__(self,other_node):
         return False
